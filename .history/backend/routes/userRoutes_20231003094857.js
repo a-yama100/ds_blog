@@ -9,5 +9,5 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.post('/edit', authMiddleware, userController.updateProfile);
 router.post('/register', userController.register);
-
+router.post('/register', userController.register);
 module.exports = router;

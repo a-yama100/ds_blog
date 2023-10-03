@@ -21,7 +21,6 @@ const Register = () => {
             const data = await response.json();
             if (response.status === 201) {
                 console.log("登録成功:", data);
-                window.location.href = '/dashboard';  // ダッシュボードにリダイレクト
             } else {
                 console.error("登録失敗:", data.error);
             }

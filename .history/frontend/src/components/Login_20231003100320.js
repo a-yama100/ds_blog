@@ -1,42 +1,39 @@
-// E:\programming\Project\ds_blog\frontend\src\components\Register.js
+// E:\programming\Project\ds_blog\frontend\src\components\Login.js
 
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-const Register = () => {
-    const [username, setUsername] = useState('');
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/users/register', {
+            const response = await fetch('/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, email, password })
+                body: JSON.stringify({ email, password })
             });
             const data = await response.json();
-            if (response.status === 201) {
-                console.log("登録成功:", data);
+            if (response.status === 200) {
+                console.log("ログイン成功:", data);
+                localStorage.setItem('token', data.token); // トークンをlocalStorageに保存
                 window.location.href = '/dashboard';  // ダッシュボードにリダイレクト
             } else {
-                console.error("登録失敗:", data.error);
+                console.error("ログイン失敗:", data.error);
             }
+            
         } catch (error) {
             console.error("エラー:", error);
         }
     }
 
     return (
-        <div className="register-form">
+        <div className="login-form">
             <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label>ユーザー名</Form.Label>
-                    <Form.Control type="text" placeholder="ユーザー名を入力" value={username} onChange={e => setUsername(e.target.value)} />
-                </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>メールアドレス</Form.Label>
                     <Form.Control type="email" placeholder="メールアドレスを入力" value={email} onChange={e => setEmail(e.target.value)} />
@@ -47,11 +44,11 @@ const Register = () => {
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
-                    登録
+                    ログイン
                 </Button>
             </Form>
         </div>
     );
 }
 
-export default Register;
+export default Login;

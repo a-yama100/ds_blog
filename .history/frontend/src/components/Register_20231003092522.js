@@ -1,4 +1,4 @@
-// E:\programming\Project\ds_blog\frontend\src\components\Register.js
+E:\programming\Project\ds_blog\frontend\src\components\Register.js
 
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
@@ -11,7 +11,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/users/register', {
+            const response = await fetch('/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -21,7 +21,6 @@ const Register = () => {
             const data = await response.json();
             if (response.status === 201) {
                 console.log("登録成功:", data);
-                window.location.href = '/dashboard';  // ダッシュボードにリダイレクト
             } else {
                 console.error("登録失敗:", data.error);
             }

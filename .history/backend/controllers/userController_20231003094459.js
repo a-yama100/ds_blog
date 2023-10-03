@@ -47,21 +47,3 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-exports.register = async (req, res) => {
-    const { username, email, password } = req.body;
-    try {
-        // メールアドレスが既に使用されているか確認
-        const existingUser = await User.findOne({ where: { email } });
-        if (existingUser) {
-            return res.status(409).json({ error: "メールアドレスが既に使用されています" });
-        }
-
-        // 新しいユーザーを作成
-        const user = await User.create({ username, email, password });
-
-        // レスポンスを返す
-        res.status(201).json({ message: "ユーザーの作成に成功しました", user });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};

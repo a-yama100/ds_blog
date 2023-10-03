@@ -16,8 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const articleRoutes = require('./routes/articleRoutes');
 
-app.use(cors());
-
 app.use('/uploads', express.static('uploads'));  // 画像へのアクセスを許可
 app.use('/articles', articleRoutes);
 
@@ -30,6 +28,8 @@ app.use('/categories', categoryRoutes);
 app.use('/contact', contactRoutes);
 
 app.use('/users', userRoutes);
+
+app.use(cors());
 
 module.exports = { app, upload };
 
